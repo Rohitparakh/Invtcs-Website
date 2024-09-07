@@ -274,12 +274,8 @@ function initializeCanvas(image) {
         console.log("Displacement filter scale:", displacementFilter.scale.x, displacementFilter.scale.y);
 
         renderer.render(stage);
-        requestAnimationFrame(animate);
-
     });
-    animate();
-
-    // ticker.start();
+    ticker.start();
     console.log("Ticker started for continuous animation");
 
     // Resize event to adjust renderer size
