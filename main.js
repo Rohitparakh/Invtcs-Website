@@ -11,8 +11,8 @@ window.addEventListener("load", () => {
     // Hide the preloader completely after fade out
     setTimeout(() => {
       preloader.style.display = "none";
-    }, 1); // Match this timeout with the fade-out duration
-  }, 1); // Delay of 4000 milliseconds (4 seconds)
+    }, 3000); // Match this timeout with the fade-out duration
+  }, 4000); // Delay of 4000 milliseconds (4 seconds)
 });
 
 // Hamburger menu functionality
@@ -274,8 +274,12 @@ function initializeCanvas(image) {
         console.log("Displacement filter scale:", displacementFilter.scale.x, displacementFilter.scale.y);
 
         renderer.render(stage);
+        requestAnimationFrame(animate);
+
     });
-    ticker.start();
+    animate();
+
+    // ticker.start();
     console.log("Ticker started for continuous animation");
 
     // Resize event to adjust renderer size
