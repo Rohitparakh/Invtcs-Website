@@ -1,6 +1,9 @@
 html {
   scroll-behavior: smooth;
 }
+html,body{
+  background: #10190C;
+}
 /* Preloader styles */
 .preloader {
   position: fixed;
@@ -320,6 +323,8 @@ nav a:hover {
   font-size: 96px;
   color: var(--color-white);
   font-family: var(--font-ibm-plex-sans);
+  overflow: hidden;
+  border-radius: var(--br-5xl);
 }
 .yellow-1-icon1 {
   height: 120px;
@@ -1854,6 +1859,8 @@ svg {
   transform: scale(1.2); /* Scale image to increase its size */
 
   object-fit: cover;
+  -webkit-filter: url("#turbulence-filter");
+  /* filter: url("#turbulence"); */
   filter: url("#turbulence-filter");
   width: calc(100% + 30vw); /* Adjust size to fit container or design needs */
   overflow: hidden; /* Hide excess parts */

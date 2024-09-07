@@ -17,7 +17,7 @@ https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css
 
 <body>
   <div class="preloader">
-    <video src="./public/Preloader.MP4" autoplay muted></video>
+    <video src="./public/Preloader.MP4" autoplay muted playsinline></video>
   </div>
   <div class="web content">
     <header class="logo-parent">
@@ -484,13 +484,16 @@ https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js
 "></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script> -->
   <script src="./main.js"></script>
-  <!-- <svg>
-      <filter id="turbulence-filter" x="0" y="0" width="100%" height="100%">
-        <feTurbulence id="turbulence-effect" numOctaves="3" seed="2" baseFrequency="0.001 0.01"></feTurbulence>
-        <feDisplacementMap scale="100" in="SourceGraphic"></feDisplacementMap>
+  <!-- <svg xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="turbulence-filter" x="0" y="0" width="200%" height="200%">
+        <feTurbulence id="turbulence-effect" type="fractalNoise" baseFrequency="0.03 0.1" numOctaves="1"></feTurbulence>
+        <feDisplacementMap scale="20" in="SourceGraphic" />
       </filter>
-      <animate xlink:href="#turbulence-effect" attributeName="baseFrequency" dur="40s" keyTimes="0;0.5;1" values="0.001 0.01; 0.005 0.005; 0.001 0.01" repeatCount="indefinite"></animate>
-    </svg> -->
+      <animate xlink:href="#turbulence-effect" attributeName="baseFrequency" dur="20s" keyTimes="0;0.5;1" values="0.03 0.1;0.1 0.1;0.03 0.1" repeatCount="indefinite"></animate>
+    </defs>
+  </svg> -->
+  
   <svg xmlns="http://www.w3.org/2000/svg">
     <defs>
       <filter id="turbulence-filter" x="0" y="0" width="100%" height="100%">
@@ -501,6 +504,14 @@ https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js
         values="0.001 0.01; 0.005 0.005; 0.001 0.01" repeatCount="indefinite"></animate>
     </defs>
   </svg>
+
+<!-- <svg>
+  <filter id="turbulence" x="0" y="0" width="100%" height="100%">
+    <feTurbulence id="sea-filter" numOctaves="3" seed="2" baseFrequency="0.001 0.01"></feTurbulence>
+    <feDisplacementMap scale="100" in="SourceGraphic"></feDisplacementMap>
+  </filter>
+  <animate xlink:href="#sea-filter" attributeName="baseFrequency" dur="40s" keyTimes="0;0.5;1" values="0.001 0.01; 0.005 0.005;0.001 0.01" repeatCount="indefinite"></animate>
+</svg> -->
 </body>
 
 </html>
