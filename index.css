@@ -5,6 +5,9 @@ html,body{
   /* background: #10190C; */
   background: #212121;
 }
+body{
+  overflow: hidden;
+}
 canvas {
   border-radius: var(--br-5xl);
 }

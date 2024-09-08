@@ -3,8 +3,10 @@ window.addEventListener("load", () => {
   setTimeout(() => {
     const preloader = document.querySelector(".preloader");
     const content = document.querySelector(".content");
+    const body = document.querySelector("body");
 
     // Fade out the preloader and fade in the content
+    body.style.overflow = "auto";
     preloader.style.opacity = "0";
     content.classList.add("show");
 
