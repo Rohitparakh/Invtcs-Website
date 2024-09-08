@@ -19,7 +19,7 @@ canvas {
     max-width: 40%;
     object-fit: contain;
     aspect-ratio: 1 / 1;
-    transform: rotate(13deg);
+    transform: rotate(9deg);
   /* bottom: -140px; */
   /* right: 0; */
   top: calc(100% - 600px);
