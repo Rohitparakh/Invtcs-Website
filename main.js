@@ -332,31 +332,119 @@ document.querySelectorAll('.cryptoknights-parent h1').forEach(h1 => {
     });
 });
 
+// // Displacement image for the filter
+// var displacementImage = "https://picsum.photos/200/300?grayscale";
+
+// // Apply the displacement filter to each image with class 'distortion'
+// function applyDisplacementFilter() {
+//     var distortionImages = document.querySelectorAll('.distortion');
+
+//     var topAdjustment = 0;
+//     distortionImages.forEach(function(image) {
+//         if (image.classList.contains('t-16px')) {
+//             topAdjustment = -16;
+//         }
+//         if (image.classList.contains('t-m-p-16px')) {
+//             if (screen.width < 1450) {
+//                 topAdjustment = 16;
+//             }
+//         }
+
+//         // Ensure the image is fully loaded before processing
+//         if (image.complete) {
+//             initializeCanvas(image, topAdjustment);
+//         } else {
+//             image.addEventListener('load', function() {
+//                 initializeCanvas(image, topAdjustment);
+//             });
+//         }
+//     });
+// }
+
+// function initializeCanvas(image, topAdjustment) {
+//     // Create a container for the image and canvas
+//     var container = image.parentElement;
+//     var canvas = document.createElement('canvas');
+
+//     // Insert the canvas into the container
+//     container.appendChild(canvas);
+
+//     // Create a new PixiJS renderer and stage for each image
+//     var renderer = new PIXI.Renderer({
+//         width: image.offsetWidth,
+//         height: image.offsetHeight,
+//         transparent: true,
+//         view: canvas
+//     });
+
+//     // Adjust the canvas size and position to match the image
+//     renderer.view.style.position = 'absolute';
+//     renderer.view.style.top = 0;
+//     renderer.view.style.left = 0;
+//     renderer.view.style.width = '100%';
+//     renderer.view.style.height = '100%';
+
+//     var stage = new PIXI.Container();
+
+//     // Create and configure the displacement sprite and filter
+//     var displacementSprite = PIXI.Sprite.from(displacementImage);
+//     var displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
+//     displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+//     displacementSprite.scale.set(30); // Adjust scale for desired intensity
+//     stage.addChild(displacementSprite);
+
+//     // Create and add the Pixi sprite for the image
+//     var texture = PIXI.Texture.from(image.src);
+//     var sprite = new PIXI.Sprite(texture);
+//     sprite.anchor.set(0.5);
+//     sprite.width = image.offsetWidth;
+//     sprite.height = image.offsetHeight;
+//     sprite.x = renderer.width / 2;
+//     sprite.y = renderer.height / 2;
+//     sprite.filters = [displacementFilter];
+//     stage.addChild(sprite);
+
+//     // Continuous displacement effect animation
+//     var ticker = new PIXI.Ticker();
+//     ticker.add(function(delta) {
+//         displacementSprite.x += 10 * delta;  // Horizontal movement
+//         displacementSprite.y += 3 * delta;   // Vertical movement
+
+//         // Animate the displacement filter scale for continuous effect
+//         var scale = Math.sin(Date.now() / 500) * 30 + 30;
+//         displacementFilter.scale.set(scale, scale);
+
+//         renderer.render(stage);
+//     });
+//     ticker.start();
+
+//     // Resize event to adjust renderer size
+//     window.addEventListener('resize', function() {
+//         renderer.resize(image.offsetWidth, image.offsetHeight);
+//         sprite.width = image.offsetWidth;
+//         sprite.height = image.offsetHeight;
+//     });
+// }
+
+// // Call the function to apply the filter
+// applyDisplacementFilter();
+
+
 // Displacement image for the filter
 var displacementImage = "https://picsum.photos/200/300?grayscale";
 
 // Apply the displacement filter to each image with class 'distortion'
 function applyDisplacementFilter() {
-    var distortionImages = document.querySelectorAll('.distortion');
+    var distortionImages = document.querySelectorAll('.distortion, .hover-distortion');
 
-    var topAdjustment = 0;
     distortionImages.forEach(function(image) {
-        if (image.classList.contains('t-16px')) {
-            topAdjustment = -16;
-        }
-        if (image.classList.contains('t-m-p-16px')) {
-            if (screen.width < 1450) {
-                topAdjustment = 16;
-            }
-        }
-
-        // Ensure the image is fully loaded before processing
-        if (image.complete) {
-            initializeCanvas(image, topAdjustment);
+        // Determine if we need to apply hover-specific logic
+        if (image.classList.contains('hover-distortion')) {
+            // Initialize the hover effect
+            setupHoverEffect(image);
         } else {
-            image.addEventListener('load', function() {
-                initializeCanvas(image, topAdjustment);
-            });
+            // Apply the effect directly
+            initializeCanvas(image, 0);
         }
     });
 }
@@ -424,120 +512,29 @@ function initializeCanvas(image, topAdjustment) {
         sprite.width = image.offsetWidth;
         sprite.height = image.offsetHeight;
     });
+
+    // Return the ticker for controlling its start/stop
+    return ticker;
+}
+
+function setupHoverEffect(image) {
+    var ticker;
+
+    image.addEventListener('mouseenter', function() {
+        // Start the distortion effect on hover
+        if (!ticker) {
+            ticker = initializeCanvas(image, 0);
+        }
+    });
+
+    image.addEventListener('mouseleave', function() {
+        // Stop the distortion effect when hover ends
+        if (ticker) {
+            ticker.stop();
+            ticker = null;
+        }
+    });
 }
 
 // Call the function to apply the filter
 applyDisplacementFilter();
-
-
-// // Displacement image for the filter
-// var displacementImage = "https://picsum.photos/200/300?grayscale";
-// console.log("Displacement image source:", displacementImage);
-
-// // Apply the displacement filter to each image with class 'distortion'
-// function applyDisplacementFilter() {
-//     // console.log("Applying displacement filter to images with class 'distortion'...");
-//     var distortionImages = document.querySelectorAll('.distortion');
-//     // console.log("Found images:", distortionImages);
-
-//     var topAdjustment = 0;
-//     distortionImages.forEach(function(image) {
-//         if (image.classList.contains('t-16px')) {
-//             topAdjustment = -16;
-//         }
-//         if (image.classList.contains('t-m-p-16px')) {
-//             console.log(screen.width)
-//             if(screen.width<1450){
-//                 topAdjustment = 16;
-//                 console.log(image)
-//         console.log(topAdjustment)
-//             }
-//         }
-        
-//         // Ensure the image is fully loaded before processing
-//         if (image.complete) {
-//             initializeCanvas(image, topAdjustment);
-//         } else {
-//             image.addEventListener('load', function() {
-//                 initializeCanvas(image, topAdjustment);
-//             });
-//         }
-//     });
-// }
-
-// function initializeCanvas(image, topAdjustment) {
-//     // console.log("Processing image:", image.src);
-
-//     // Create a new PixiJS renderer and stage for each image
-//     var renderer = new PIXI.Renderer({
-//         width: image.offsetWidth,
-//         height: image.offsetHeight,
-//         transparent: true,
-//         view: document.createElement('canvas') // Create a new canvas element
-//     });
-
-//     // Position the canvas over the image
-//     var rect = image.getBoundingClientRect();
-//     renderer.view.style.position = 'absolute';
-//     renderer.view.style.top = `${rect.top + window.scrollY + topAdjustment}px`; // Adjust for page scroll
-//     renderer.view.style.left = `${rect.left + window.scrollX}px`; // Adjust for page scroll
-//     renderer.view.style.width = `${image.offsetWidth}px`;
-//     renderer.view.style.height = `${image.offsetHeight}px`;
-//     document.body.appendChild(renderer.view);
-
-//     var stage = new PIXI.Container();
-
-//     // Create and configure the displacement sprite and filter
-//     var displacementSprite = PIXI.Sprite.from(displacementImage);
-//     var displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
-//     displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
-//     displacementSprite.scale.set(30); // Adjust scale for desired intensity
-//     stage.addChild(displacementSprite);
-
-//     // Create and add the Pixi sprite for the image
-//     var texture = PIXI.Texture.from(image.src);
-//     var sprite = new PIXI.Sprite(texture);
-//     sprite.anchor.set(0.5);
-//     sprite.width = image.offsetWidth;
-//     sprite.height = image.offsetHeight;
-//     sprite.x = renderer.width / 2;
-//     sprite.y = renderer.height / 2;
-//     sprite.filters = [displacementFilter];
-//     stage.addChild(sprite);
-
-//     // console.log("Added sprite with displacement filter:", sprite);
-
-//     // Continuous displacement effect animation
-//     var ticker = new PIXI.Ticker();
-//     ticker.add(function(delta) {
-//         // Increase the movement speed for more intense distortion
-//         displacementSprite.x += 10 * delta;  // Horizontal movement
-//         displacementSprite.y += 3 * delta;   // Vertical movement
-
-//         // Animate the displacement filter scale for continuous effect
-//         var scale = Math.sin(Date.now() / 500) * 30 + 30; // Sine wave effect for scale
-//         displacementFilter.scale.set(scale, scale);
-
-//         // Log the current displacement scale
-//         // console.log("Displacement filter scale:", displacementFilter.scale.x, displacementFilter.scale.y);
-
-//         renderer.render(stage);
-//     });
-//     ticker.start();
-//     // console.log("Ticker started for continuous animation");
-
-//     // Resize event to adjust renderer size
-//     window.addEventListener('resize', function() {
-//         // Update the canvas size and position to match the image's size and position
-//         // var rect = image.getBoundingClientRect();
-//         // renderer.resize(image.offsetWidth, image.offsetHeight);
-//         // renderer.view.style.width = `${image.offsetWidth}px`;
-//         // renderer.view.style.height = `${image.offsetHeight}px`;
-//         // renderer.view.style.top = `${rect.top + window.scrollY}px`; // Adjust for page scroll
-//         // renderer.view.style.left = `${rect.left + window.scrollX}px`; // Adjust for page scroll
-//         // console.log("Window resized. Renderer size adjusted to:", image.offsetWidth, image.offsetHeight);
-//     });
-// }
-
-// // Call the function to apply the filter
-// applyDisplacementFilter();
