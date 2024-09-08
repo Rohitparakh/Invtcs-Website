@@ -1572,6 +1572,16 @@ height: 100vh;
   .frame-parent2 {
     grid-template-columns: minmax(352px, 1fr);
   }
+  .frame-parent2 .image-icon,
+  .services-4 .image-icon,
+  .services-4 img,
+  .frame-parent2 img{
+    max-height: 200px;
+  }
+  
+  .kol-marketing-and-management-parent{
+    height: auto;
+  }
   .kati-patang {
     padding-bottom: var(--padding-28xl);
     box-sizing: border-box;
