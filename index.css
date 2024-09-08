@@ -8,6 +8,21 @@ html,body{
 canvas {
   border-radius: var(--br-5xl);
 }
+.pos-r{
+  position: relative !important;
+}
+
+.bolt{
+  /* position: absolute !important; */
+  height: 600px;
+  width: 600px;
+  max-width: 40%;
+  aspect-ratio: 1/1;
+  /* bottom: -140px; */
+  /* right: 0; */
+  /* top: calc(100% - 600px); */
+  /* left: calc(90% - 600px); */
+}
 /* Preloader styles */
 .preloader {
   position: fixed;
@@ -105,7 +120,7 @@ nav a:hover {
   margin: 0;
   align-self: stretch;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: var(--gap-xl);
   text-align: left;
   font-size: var(--font-size-5xl);
@@ -135,6 +150,7 @@ nav a:hover {
   padding: 0 var(--padding-5xl);
   gap: var(--gap-85xl-7);
   max-width: 100%;
+  justify-content: space-between;
 }
 #mobile-menu {
   position: absolute;
@@ -456,6 +472,7 @@ nav a:hover {
   align-self: stretch;
   border-radius: var(--br-5xl);
   background-color: var(--color-gray-200);
+  gap:50px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
