@@ -337,8 +337,8 @@ var displacementImage = "https://picsum.photos/200/300?grayscale";
 
 // Apply the displacement filter to each image with class 'distortion'
 function applyDisplacementFilter() {
-    // var distortionImages = document.querySelectorAll('.distortion');
-    var distortionImages = document.querySelectorAll('.distortion, .hover-distortion');
+    var distortionImages = document.querySelectorAll('.distortion');
+    // var distortionImages = document.querySelectorAll('.distortion, .hover-distortion');
 
     var topAdjustment = 0;
     distortionImages.forEach(function(image) {
