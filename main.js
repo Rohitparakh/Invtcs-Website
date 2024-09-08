@@ -20,16 +20,22 @@ const hamburgerBtn = document.getElementById("hamburger-btn");
 const mobileMenu = document.getElementById("mobile-menu");
 const closeBtn = document.getElementById("close-btn");
 const mobileCta = document.getElementById("mobileCta");
+const header = document.getElementsByClassName("logo")[0];
+
 
 // Function to close the mobile menu
 function closeMenu() {
   mobileMenu.style.display = "none";
   hamburgerBtn.style.display = "block"; // Show hamburger icon when menu is closed
   closeBtn.style.display = "none"; // Hide close button when menu is closed
+  header.style.borderBottomRightRadius = 'var(--br-5xl)';
+    header.style.borderBottomLeftRadius = 'var(--br-5xl)';
 }
 
 // Function to open/close the mobile menu
 function openMenu() {
+    header.style.borderBottomRightRadius = 0;
+    header.style.borderBottomLeftRadius = 0;
   mobileMenu.style.display =
     mobileMenu.style.display === "block" ? "none" : "block";
   hamburgerBtn.style.display = "none"; // Hide hamburger icon when menu is open
@@ -82,78 +88,60 @@ $(document).ready(function () {
   });
 });
 
-// Fade-in text animation on scroll
 document.addEventListener("DOMContentLoaded", () => {
-  const sections = document.querySelectorAll('[id^="section-"]'); // Select sections by id starting with 'section-'
+    const fadeInTextElements = document.querySelectorAll('.fade-in-text');
+    const triggerPercentage = 0.5; // Percentage of the element in view to trigger animation (0.5 = 50%)
+    const wordAnimationDelay = 100; // Time delay between words (300ms here)
 
-  // Function to wrap each word in a span
-  const wrapWordsInSpans = (element) => {
-    const words = element.innerText.split(" ");
-    element.innerHTML = words.map((word) => `<span>${word}</span>`).join(" ");
-  };
+    // Split text into individual words, wrapping each word in a span
+    fadeInTextElements.forEach(element => {
+        const textContent = element.innerText;
+        const words = textContent.split(" ");
+        
+        // Clear the original text content
+        element.innerHTML = '';
 
-  // Initialize fade-in-text elements
-  const initializeFadeInTexts = (section) => {
-    const fadeInElements = section.querySelectorAll(".fade-in-text");
-    fadeInElements.forEach((element) => wrapWordsInSpans(element));
-  };
-
-  // Animate words in each fade-in-text element
-  const animateWords = (spans, initialDelay = 0, wordDelay = 150) => {
-    spans.forEach((span, index) => {
-      setTimeout(() => {
-        span.classList.add("word-visible");
-      }, initialDelay + index * wordDelay);
+        // Wrap each word in a span and append it back to the paragraph
+        words.forEach((word, index) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.textContent = word + ' ';
+            element.appendChild(wordSpan);
+        });
     });
-  };
 
-  // Animate all fade-in-text elements within a section
-  const animateSection = (section) => {
-    const fadeInElements = section.querySelectorAll(".fade-in-text");
-    let globalDelay = 0; // Global delay for the entire section
+    // Create a new IntersectionObserver to track when elements come into view
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: triggerPercentage // Trigger when 50% of the element is in view
+    };
 
-    fadeInElements.forEach((fadeInElement) => {
-      const spans = fadeInElement.querySelectorAll("span");
-      const totalAnimationTime = spans.length * 150; // Calculate total time for current element's words
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const wordSpans = element.querySelectorAll('span');
 
-      // Animate current fade-in-text's words with globalDelay
-      animateWords(spans, globalDelay);
+                // Animate words one by one
+                wordSpans.forEach((wordSpan, index) => {
+                    setTimeout(() => {
+                        wordSpan.classList.add('fade-in-word');
+                    }, index * wordAnimationDelay); // Apply delay for each word
+                });
 
-      // Increase globalDelay for the next fade-in-text element
-      globalDelay += totalAnimationTime + 500; // Add 500ms gap between fade-in-text elements
+                // Stop observing the element once the animation has started
+                observer.unobserve(element);
+            }
+        });
+    }, observerOptions);
+
+    // Observe all the fade-in-text elements
+    fadeInTextElements.forEach(element => {
+        observer.observe(element);
     });
-  };
-
-  // Intersection Observer options
-  const sectionObserverOptions = {
-    threshold: 0.2, // 20% visibility to start the animation
-  };
-
-  const sectionObserverCallback = (entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const section = entry.target;
-
-        // Initialize and animate the section's fade-in-text elements
-        initializeFadeInTexts(section);
-        animateSection(section);
-
-        // Stop observing once the section has been animated
-        observer.unobserve(section);
-      }
-    });
-  };
-
-  const sectionObserver = new IntersectionObserver(
-    sectionObserverCallback,
-    sectionObserverOptions
-  );
-
-  // Observe each section by its id
-  sections.forEach((section) => {
-    sectionObserver.observe(section); // Start observing each section
-  });
 });
+
+
 
 // Cryptoknights parent content update
 const data = {
@@ -187,13 +175,50 @@ document.querySelectorAll(".cryptoknights-parent h1").forEach((h1) => {
 });
 
 // Set default selection
-const defaultId = "3";
+const defaultId = "1";
 const defaultH1 = document.querySelector(
   `.cryptoknights-parent h1[data-id="${defaultId}"]`
 );
 if (defaultH1) {
   defaultH1.classList.add("active");
 }
+
+ // Function to update content based on id
+ function updateContent(id) {
+    // Remove 'active' class from all h1 elements
+    document.querySelectorAll('.cryptoknights-parent h1').forEach(el => el.classList.remove('active'));
+
+    // Add 'active' class to the current h1 element
+    const selectedH1 = document.querySelector(`.cryptoknights-parent h1[data-id="${id}"]`);
+    if (selectedH1) {
+        selectedH1.classList.add('active');
+    }
+
+    // Update the img src and text content
+    const itemData = data[id];
+    document.querySelector('.ellipse-parent .group-icon').setAttribute('src', itemData.imgSrc);
+    document.querySelector('.ellipse-parent .rampx').textContent = itemData.text;
+}
+
+// Set default selection
+let currentId = 1; // Start with id 1 by default
+updateContent(currentId);
+
+// Automatically change every 2.5 seconds
+setInterval(() => {
+    currentId++;
+    if (currentId > 4) currentId = 1; // Loop back to 1 if it exceeds the number of items
+    updateContent(currentId);
+}, 2500); // Change every 2500 milliseconds (2.5 seconds)
+
+// Allow manual clicks to override the automatic change
+document.querySelectorAll('.cryptoknights-parent h1').forEach(h1 => {
+    h1.addEventListener('click', function() {
+        // Set the current id to the clicked element's id
+        currentId = parseInt(this.getAttribute('data-id'), 10);
+        updateContent(currentId);
+    });
+});
 
 // Displacement image for the filter
 var displacementImage = "https://picsum.photos/200/300?grayscale";
@@ -205,19 +230,23 @@ function applyDisplacementFilter() {
     var distortionImages = document.querySelectorAll('.distortion');
     console.log("Found images:", distortionImages);
 
+    var topAdjustment = 0;
     distortionImages.forEach(function(image) {
+        if (image.classList.contains('t-16px')) {
+            topAdjustment = -16;
+        }
         // Ensure the image is fully loaded before processing
         if (image.complete) {
-            initializeCanvas(image);
+            initializeCanvas(image, topAdjustment);
         } else {
             image.addEventListener('load', function() {
-                initializeCanvas(image);
+                initializeCanvas(image, topAdjustment);
             });
         }
     });
 }
 
-function initializeCanvas(image) {
+function initializeCanvas(image, topAdjustment) {
     console.log("Processing image:", image.src);
 
     // Create a new PixiJS renderer and stage for each image
@@ -231,7 +260,7 @@ function initializeCanvas(image) {
     // Position the canvas over the image
     var rect = image.getBoundingClientRect();
     renderer.view.style.position = 'absolute';
-    renderer.view.style.top = `${rect.top + window.scrollY}px`; // Adjust for page scroll
+    renderer.view.style.top = `${rect.top + window.scrollY + topAdjustment}px`; // Adjust for page scroll
     renderer.view.style.left = `${rect.left + window.scrollX}px`; // Adjust for page scroll
     renderer.view.style.width = `${image.offsetWidth}px`;
     renderer.view.style.height = `${image.offsetHeight}px`;

@@ -4,6 +4,9 @@ html {
 html,body{
   background: #10190C;
 }
+canvas {
+  border-radius: var(--br-5xl);
+}
 /* Preloader styles */
 .preloader {
   position: fixed;
@@ -191,6 +194,7 @@ nav a:hover {
   background-color: var(--color-yellow-200);
 }
 .logo-parent {
+  backdrop-filter:blur(10px);
   align-self: stretch;
   justify-content: flex-start;
   gap: var(--gap-5xs);
@@ -275,7 +279,8 @@ nav a:hover {
   width: 100%;
 }
 .genre-items {
-  top: 8px;
+  /* top: 8px; */
+  top: 0;
   border-radius: var(--br-5xl);
   background-color: var(--color-gray-200);
   overflow: hidden;
@@ -311,15 +316,16 @@ nav a:hover {
 }
 .hero {
   /* height: 824px; */
-  /* background-color: var(--color-gray-100); */
-  background-color: #040e03;
+  background-color: var(--color-gray-100);
+  /* background-color: #040e03; */
   /* overflow-y: auto; */
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: var(--padding-5xs) var(--padding-5xs) 0;
+  /* padding: var(--padding-5xs) var(--padding-5xs) 0; */
+  padding: var(--padding-5xs) 0;
   box-sizing: border-box;
   max-width: 100%;
   text-align: left;
@@ -327,7 +333,7 @@ nav a:hover {
   color: var(--color-white);
   font-family: var(--font-ibm-plex-sans);
   overflow: hidden;
-  border-radius: var(--br-5xl);
+  /* border-radius: var(--br-5xl); */
 }
 .yellow-1-icon1 {
   height: 120px;
@@ -1346,6 +1352,8 @@ nav a:hover {
   height: 544px;
   position: relative;
   /* margin-top: -4px; */
+  margin-left: -8px;
+  margin-right: -8px;
   margin-top: 10px;
   overflow: hidden;
   border-radius: var(--br-5xl);
@@ -1367,6 +1375,7 @@ nav a:hover {
   background-color: var(--color-gray-100);
   overflow: hidden;
   padding: var(--padding-5xs);
+  padding-bottom: 0;
   box-sizing: border-box;
   max-width: 100%;
   text-align: left;
@@ -1385,7 +1394,8 @@ nav a:hover {
     display: none;
   } */
   .hero {
-    padding-top: var(--padding-xl);
+    /* padding-top: var(--padding-xl); */
+    padding: 0;
     /* padding-bottom: 452px; */
     box-sizing: border-box;
   }
@@ -1617,7 +1627,7 @@ nav a:hover {
   }
   .hero {
     /* padding-bottom: 191px; */
-    padding-bottom: 20px;
+    padding-bottom: 0;
     box-sizing: border-box;
   }
   .manifesto1,
@@ -1881,3 +1891,27 @@ svg {
   border-radius: var(--br-5xl);
 }
 
+
+/* Set initial text color */
+.fade-in-text span {
+  color: #6e6868;
+  display: inline-block;
+  white-space: pre-wrap; /* Ensures spaces are preserved between words */
+  opacity: 1;
+  transition: color 0.5s ease-in-out;
+}
+
+/* This class will be added to trigger the animation */
+.fade-in-text .fade-in-word {
+  animation: fadeInColor 0.5s forwards;
+}
+
+/* Keyframe to animate color from #6e6868 to #fff */
+@keyframes fadeInColor {
+  from {
+      color: #6e6868;
+  }
+  to {
+      color: #fff;
+  }
+}
