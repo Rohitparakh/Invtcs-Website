@@ -13,15 +13,27 @@ canvas {
 }
 
 .bolt{
-  /* position: absolute !important; */
+  position: absolute !important;
   height: 600px;
-  width: 600px;
-  max-width: 40%;
-  aspect-ratio: 1/1;
+    width: 600px;
+    max-width: 40%;
+    object-fit: contain;
+    aspect-ratio: 1 / 1;
+    transform: rotate(13deg);
   /* bottom: -140px; */
   /* right: 0; */
-  /* top: calc(100% - 600px); */
-  /* left: calc(90% - 600px); */
+  top: calc(100% - 600px);
+  left: calc(100% - 600px);
+  z-index: 2;
+}
+@media(max-width:1360px){
+  .bolt{
+    display: none;
+  }
+}
+.invcts-helps-brands{
+  z-index: 3;
+  position: relative;
 }
 /* Preloader styles */
 .preloader {
@@ -852,7 +864,7 @@ height: 100vh;
   background-color: var(--color-gray-100);
   overflow: hidden;
   display: flex;
-  padding: 136px var(--padding-5xs) var(--padding-5xs);
+  padding: 0 var(--padding-5xs) 136px var(--padding-5xs);
   text-align: left;
   font-size: var(--font-size-13xl);
   color: var(--color-yellow-100);
