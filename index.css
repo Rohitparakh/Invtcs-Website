@@ -2,7 +2,8 @@ html {
   scroll-behavior: smooth;
 }
 html,body{
-  background: #10190C;
+  /* background: #10190C; */
+  background: #212121;
 }
 canvas {
   border-radius: var(--br-5xl);
@@ -69,7 +70,8 @@ nav a:hover {
   display: none;
 }
 .yellow-1-icon {
-  height: 120px;
+  /* height: 120px; */
+  height: 100px;
   width: 213.3px;
   position: relative;
   overflow: hidden;
@@ -120,7 +122,8 @@ nav a:hover {
   margin: 0;
   width: 434px;
   flex-direction: column;
-  padding: var(--padding-25xl) 0 0;
+  padding: 38px 0 0;
+  /* padding: var(--padding-25xl) 0 0; */
 }
 .logo {
   flex: 1;
@@ -184,7 +187,8 @@ nav a:hover {
   background-color: var(--color-yellow-100);
   overflow: hidden;
   justify-content: flex-end;
-  padding: var(--padding-20xl) var(--padding-28xl);
+  /* padding: var(--padding-20xl) var(--padding-28xl); */
+  padding: 29px 16px ;
   box-sizing: border-box;
   white-space: nowrap;
   cursor: pointer;
@@ -325,7 +329,8 @@ nav a:hover {
   align-items: flex-start;
   justify-content: flex-start;
   /* padding: var(--padding-5xs) var(--padding-5xs) 0; */
-  padding: var(--padding-5xs) 0;
+  /* padding: var(--padding-5xs) 0; */
+  padding: 0 0;
   box-sizing: border-box;
   max-width: 100%;
   text-align: left;
@@ -336,7 +341,8 @@ nav a:hover {
   /* border-radius: var(--br-5xl); */
 }
 .yellow-1-icon1 {
-  height: 120px;
+  /* height: 120px; */
+  height: 100px;
   width: 213.3px;
   position: relative;
   overflow: hidden;
@@ -472,6 +478,7 @@ nav a:hover {
   align-items: flex-start;
   justify-content: flex-start;
   padding: var(--padding-5xs);
+  padding-top: 0;
   box-sizing: border-box;
   gap: var(--gap-5xs);
   text-align: left;
@@ -1900,21 +1907,19 @@ svg {
 }
 
 
-/* Set initial text color */
-.fade-in-text span {
+
+/* .fade-in-text span {
   color: #6e6868;
   display: inline-block;
-  white-space: pre-wrap; /* Ensures spaces are preserved between words */
+  white-space: pre-wrap; 
   opacity: 1;
   transition: color 0.5s ease-in-out;
 }
 
-/* This class will be added to trigger the animation */
 .fade-in-text .fade-in-word {
   animation: fadeInColor 0.5s forwards;
 }
 
-/* Keyframe to animate color from #6e6868 to #fff */
 @keyframes fadeInColor {
   from {
       color: #6e6868;
@@ -1922,7 +1927,16 @@ svg {
   to {
       color: #fff;
   }
+} */
+.fade-in-line {
+  opacity: 0;
+  transition: opacity 1s ease;
 }
+
+.fade-in-line.show {
+  opacity: 1;
+}
+
 
 .image-wrapper {
   position: relative;

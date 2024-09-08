@@ -88,58 +88,170 @@ $(document).ready(function () {
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    const fadeInTextElements = document.querySelectorAll('.fade-in-text');
-    const triggerPercentage = 0.5; // Percentage of the element in view to trigger animation (0.5 = 50%)
-    const wordAnimationDelay = 100; // Time delay between words (300ms here)
+// document.addEventListener("DOMContentLoaded", () => {
+//     const fadeInTextElements = document.querySelectorAll('.fade-in-text');
+//     const triggerPercentage = 0.5; // Percentage of the element in view to trigger animation (0.5 = 50%)
+//     const wordAnimationDelay = 100; // Time delay between words (300ms here)
 
-    // Split text into individual words, wrapping each word in a span
-    fadeInTextElements.forEach(element => {
-        const textContent = element.innerText;
-        const words = textContent.split(" ");
+//     // Split text into individual words, wrapping each word in a span
+//     fadeInTextElements.forEach(element => {
+//         const textContent = element.innerText;
+//         const words = textContent.split(" ");
         
-        // Clear the original text content
-        element.innerHTML = '';
+//         // Clear the original text content
+//         element.innerHTML = '';
 
-        // Wrap each word in a span and append it back to the paragraph
-        words.forEach((word, index) => {
-            const wordSpan = document.createElement('span');
-            wordSpan.textContent = word + ' ';
-            element.appendChild(wordSpan);
-        });
+//         // Wrap each word in a span and append it back to the paragraph
+//         words.forEach((word, index) => {
+//             const wordSpan = document.createElement('span');
+//             wordSpan.textContent = word + ' ';
+//             element.appendChild(wordSpan);
+//         });
+//     });
+
+//     // Create a new IntersectionObserver to track when elements come into view
+//     const observerOptions = {
+//         root: null,
+//         rootMargin: '0px',
+//         threshold: triggerPercentage // Trigger when 50% of the element is in view
+//     };
+
+//     const observer = new IntersectionObserver((entries, observer) => {
+//         entries.forEach(entry => {
+//             if (entry.isIntersecting) {
+//                 const element = entry.target;
+//                 const wordSpans = element.querySelectorAll('span');
+
+//                 // Animate words one by one
+//                 wordSpans.forEach((wordSpan, index) => {
+//                     setTimeout(() => {
+//                         wordSpan.classList.add('fade-in-word');
+//                     }, index * wordAnimationDelay); // Apply delay for each word
+//                 });
+
+//                 // Stop observing the element once the animation has started
+//                 observer.unobserve(element);
+//             }
+//         });
+//     }, observerOptions);
+
+//     // Observe all the fade-in-text elements
+//     fadeInTextElements.forEach(element => {
+//         observer.observe(element);
+//     });
+// });
+
+// Configuration variables
+const ANIMATION_SPEED = 0.5; // Speed in seconds per line (adjust as needed)
+const PERCENT_IN_VIEW = 0.5; // Percentage of the element that must be in view to start animation
+
+function splitTextIntoLines(element) {
+    console.log("Starting to split text into lines for element:", element);
+
+    const text = element.textContent;
+    console.log("Original text content:", text);
+
+    const words = text.split(" ");
+    console.log("Split text into words:", words);
+
+    const tempSpan = document.createElement('span');
+    tempSpan.style.visibility = 'hidden';
+    document.body.appendChild(tempSpan);
+
+    tempSpan.style.font = window.getComputedStyle(element).font;
+    tempSpan.style.whiteSpace = 'pre';
+    tempSpan.style.position = 'absolute';
+
+    const lines = [];
+    let currentLine = '';
+
+    console.log("Element width for wrapping (px):", element.offsetWidth);
+
+    words.forEach((word, index) => {
+        const testLine = currentLine + (currentLine ? ' ' : '') + word;
+        tempSpan.textContent = testLine;
+
+        console.log(`Testing line [${index}]:`, testLine, "| Width (px):", tempSpan.offsetWidth);
+
+        if (tempSpan.offsetWidth > element.offsetWidth) {
+            console.log("Line is too wide, pushing current line:", currentLine);
+            lines.push(currentLine);
+            currentLine = word;
+        } else {
+            currentLine = testLine;
+        }
     });
 
-    // Create a new IntersectionObserver to track when elements come into view
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: triggerPercentage // Trigger when 50% of the element is in view
-    };
+    if (currentLine) {
+        console.log("Adding final line:", currentLine);
+        lines.push(currentLine);
+    }
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    document.body.removeChild(tempSpan);
+    console.log("Final lines array:", lines);
+    return lines;
+}
+
+function applyFadeInAnimation(lines, container) {
+    container.innerHTML = ''; // Clear original text
+    console.log("Cleared original container content.");
+
+    lines.forEach((line, index) => {
+        const lineDiv = document.createElement('div');
+        lineDiv.textContent = line;
+        lineDiv.classList.add('fade-in-line');
+        lineDiv.style.transitionDelay = `${index * ANIMATION_SPEED}s`; // Delay between each line fade-in
+
+        console.log(`Adding line [${index}] with delay ${index * ANIMATION_SPEED}s:`, line);
+        container.appendChild(lineDiv);
+    });
+
+    // Trigger the animation when the element is in view
+    const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
+            console.log("IntersectionObserver triggered. Entry:", entry);
             if (entry.isIntersecting) {
-                const element = entry.target;
-                const wordSpans = element.querySelectorAll('span');
+                const ratio = entry.intersectionRatio;
+                console.log("Intersection ratio:", ratio);
 
-                // Animate words one by one
-                wordSpans.forEach((wordSpan, index) => {
-                    setTimeout(() => {
-                        wordSpan.classList.add('fade-in-word');
-                    }, index * wordAnimationDelay); // Apply delay for each word
-                });
-
-                // Stop observing the element once the animation has started
-                observer.unobserve(element);
+                if (ratio >= PERCENT_IN_VIEW) {
+                    console.log("Element is sufficiently in view, starting animation...");
+                    const lineElements = entry.target.querySelectorAll('.fade-in-line');
+                    lineElements.forEach((line, lineIndex) => {
+                        console.log(`Fading in line [${lineIndex}]:`, line.textContent);
+                        line.classList.add('show'); // Add 'show' class to trigger fade-in
+                    });
+                }
             }
         });
-    }, observerOptions);
+    }, { threshold: [PERCENT_IN_VIEW] });
 
-    // Observe all the fade-in-text elements
-    fadeInTextElements.forEach(element => {
-        observer.observe(element);
-    });
+    observer.observe(container);
+}
+
+// Example usage:
+document.addEventListener("DOMContentLoaded", () => {
+    const paragraph = document.querySelector('.fade-in-text');
+    console.log("Found paragraph element:", paragraph);
+
+    if (paragraph) {
+        const lines = splitTextIntoLines(paragraph);
+        console.log("Lines after splitting:", lines);
+
+        applyFadeInAnimation(lines, paragraph);
+    } else {
+        console.log("No paragraph element found.");
+    }
 });
+
+
+
+
+
+
+
+
+
 
 
 
