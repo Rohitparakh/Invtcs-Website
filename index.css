@@ -1726,6 +1726,9 @@ height: 100vh;
     padding-right: var(--padding-xl);
     box-sizing: border-box;
   }
+  .invcts-helps-brands{
+    text-align: center;
+  }
   .invcts-helps-brands-container {
     font-size: var(--font-size-3xl);
     line-height: 24px;

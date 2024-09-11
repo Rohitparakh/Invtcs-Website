@@ -144,56 +144,52 @@ $(document).ready(function () {
 // });
 
 // Configuration variables
-const ANIMATION_SPEED = 0.5; // Speed in seconds per line (adjust as needed)
+const ANIMATION_SPEED = 0.5; // Speed in seconds per line
 const PERCENT_IN_VIEW = 0.5; // Percentage of the element that must be in view to start animation
 
+// Function to split text into lines based on natural word wrapping
 function splitTextIntoLines(element) {
     console.log("Starting to split text into lines for element:", element);
 
-    const text = element.textContent;
-    console.log("Original text content:", text);
-
-    const words = text.split(" ");
-    console.log("Split text into words:", words);
-
-    const tempSpan = document.createElement('span');
-    tempSpan.style.visibility = 'hidden';
-    document.body.appendChild(tempSpan);
-
-    tempSpan.style.font = window.getComputedStyle(element).font;
-    tempSpan.style.whiteSpace = 'pre';
-    tempSpan.style.position = 'absolute';
-
     const lines = [];
+    const words = element.textContent.split(' ');
+
+    // Create a clone of the element to measure line breaks
+    const clone = element.cloneNode(true);
+    clone.style.visibility = 'hidden';
+    clone.style.position = 'absolute';
+    clone.style.whiteSpace = 'normal';
+    clone.style.width = `${element.clientWidth}px`;
+    document.body.appendChild(clone);
+
+    // Reset the text content in the clone and start adding words one by one
+    clone.textContent = '';
+
     let currentLine = '';
 
-    console.log("Element width for wrapping (px):", element.offsetWidth);
-
     words.forEach((word, index) => {
-        const testLine = currentLine + (currentLine ? ' ' : '') + word;
-        tempSpan.textContent = testLine;
-
-        console.log(`Testing line [${index}]:`, testLine, "| Width (px):", tempSpan.offsetWidth);
-
-        if (tempSpan.offsetWidth > element.offsetWidth) {
-            console.log("Line is too wide, pushing current line:", currentLine);
-            lines.push(currentLine);
-            currentLine = word;
+        clone.textContent = currentLine ? currentLine + ' ' + word : word;
+        
+        // If the text in the clone exceeds the width, push the previous line
+        if (clone.scrollHeight > element.scrollHeight) {
+            lines.push(currentLine); // Store the current line
+            currentLine = word; // Start a new line
         } else {
-            currentLine = testLine;
+            currentLine = clone.textContent; // Continue adding to the current line
         }
     });
 
+    // Add the last line
     if (currentLine) {
-        console.log("Adding final line:", currentLine);
         lines.push(currentLine);
     }
 
-    document.body.removeChild(tempSpan);
+    document.body.removeChild(clone); // Remove the clone after processing
     console.log("Final lines array:", lines);
     return lines;
 }
 
+// Function to apply fade-in animation line by line
 function applyFadeInAnimation(lines, container) {
     container.innerHTML = ''; // Clear original text
     console.log("Cleared original container content.");
@@ -202,7 +198,8 @@ function applyFadeInAnimation(lines, container) {
         const lineDiv = document.createElement('div');
         lineDiv.textContent = line;
         lineDiv.classList.add('fade-in-line');
-        lineDiv.style.transitionDelay = `${index * ANIMATION_SPEED}s`; // Delay between each line fade-in
+        lineDiv.style.opacity = '0'; // Initially invisible
+        lineDiv.style.transition = `opacity ${ANIMATION_SPEED}s ease ${index * ANIMATION_SPEED}s`; // Delay each line fade-in
 
         console.log(`Adding line [${index}] with delay ${index * ANIMATION_SPEED}s:`, line);
         container.appendChild(lineDiv);
@@ -220,8 +217,10 @@ function applyFadeInAnimation(lines, container) {
                     console.log("Element is sufficiently in view, starting animation...");
                     const lineElements = entry.target.querySelectorAll('.fade-in-line');
                     lineElements.forEach((line, lineIndex) => {
-                        console.log(`Fading in line [${lineIndex}]:`, line.textContent);
-                        line.classList.add('show'); // Add 'show' class to trigger fade-in
+                        setTimeout(() => {
+                            console.log(`Fading in line [${lineIndex}]:`, line.textContent);
+                            line.style.opacity = '1'; // Make line visible
+                        }, lineIndex * ANIMATION_SPEED * 1000); // Delay each line fade-in
                     });
                 }
             }
@@ -245,6 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("No paragraph element found.");
     }
 });
+
+
+
 
 
 
