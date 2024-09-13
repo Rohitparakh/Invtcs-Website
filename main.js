@@ -143,6 +143,109 @@ $(document).ready(function () {
 //     });
 // });
 
+// // Configuration variables
+// const ANIMATION_SPEED = 0.5; // Speed in seconds per line
+// const PERCENT_IN_VIEW = 0.5; // Percentage of the element that must be in view to start animation
+
+// // Function to split text into lines based on natural word wrapping
+// function splitTextIntoLines(element) {
+//     console.log("Starting to split text into lines for element:", element);
+
+//     const lines = [];
+//     const words = element.textContent.split(' ');
+
+//     // Create a clone of the element to measure line breaks
+//     const clone = element.cloneNode(true);
+//     clone.style.visibility = 'hidden';
+//     clone.style.position = 'absolute';
+//     clone.style.whiteSpace = 'normal';
+//     clone.style.width = `${element.clientWidth}px`;
+//     document.body.appendChild(clone);
+
+//     // Reset the text content in the clone and start adding words one by one
+//     clone.textContent = '';
+
+//     let currentLine = '';
+
+//     words.forEach((word, index) => {
+//         clone.textContent = currentLine ? currentLine + ' ' + word : word;
+        
+//         // If the text in the clone exceeds the width, push the previous line
+//         if (clone.scrollHeight > element.scrollHeight) {
+//             lines.push(currentLine); // Store the current line
+//             currentLine = word; // Start a new line
+//         } else {
+//             currentLine = clone.textContent; // Continue adding to the current line
+//         }
+//     });
+
+//     // Add the last line
+//     if (currentLine) {
+//         lines.push(currentLine);
+//     }
+
+//     document.body.removeChild(clone); // Remove the clone after processing
+//     console.log("Final lines array:", lines);
+//     return lines;
+// }
+
+// // Function to apply fade-in animation line by line
+// function applyFadeInAnimation(lines, container) {
+//     container.innerHTML = ''; // Clear original text
+//     console.log("Cleared original container content.");
+
+//     lines.forEach((line, index) => {
+//         const lineDiv = document.createElement('div');
+//         lineDiv.textContent = line;
+//         lineDiv.classList.add('fade-in-line');
+//         lineDiv.style.opacity = '0'; // Initially invisible
+//         lineDiv.style.transition = `opacity ${ANIMATION_SPEED}s ease ${index * ANIMATION_SPEED}s`; // Delay each line fade-in
+
+//         console.log(`Adding line [${index}] with delay ${index * ANIMATION_SPEED}s:`, line);
+//         container.appendChild(lineDiv);
+//     });
+
+//     // Trigger the animation when the element is in view
+//     const observer = new IntersectionObserver(entries => {
+//         entries.forEach(entry => {
+//             console.log("IntersectionObserver triggered. Entry:", entry);
+//             if (entry.isIntersecting) {
+//                 const ratio = entry.intersectionRatio;
+//                 console.log("Intersection ratio:", ratio);
+
+//                 if (ratio >= PERCENT_IN_VIEW) {
+//                     console.log("Element is sufficiently in view, starting animation...");
+//                     const lineElements = entry.target.querySelectorAll('.fade-in-line');
+//                     lineElements.forEach((line, lineIndex) => {
+//                         setTimeout(() => {
+//                             console.log(`Fading in line [${lineIndex}]:`, line.textContent);
+//                             line.style.opacity = '1'; // Make line visible
+//                         }, lineIndex * ANIMATION_SPEED * 1000); // Delay each line fade-in
+//                     });
+//                 }
+//             }
+//         });
+//     }, { threshold: [PERCENT_IN_VIEW] });
+
+//     observer.observe(container);
+// }
+
+// // Example usage:
+// document.addEventListener("DOMContentLoaded", () => {
+//     const paragraph = document.querySelector('.fade-in-text');
+//     console.log("Found paragraph element:", paragraph);
+
+//     if (paragraph) {
+//         const lines = splitTextIntoLines(paragraph);
+//         console.log("Lines after splitting:", lines);
+
+//         applyFadeInAnimation(lines, paragraph);
+//     } else {
+//         console.log("No paragraph element found.");
+//     }
+// });
+
+
 // Configuration variables
 const ANIMATION_SPEED = 0.5; // Speed in seconds per line
 const PERCENT_IN_VIEW = 0.5; // Percentage of the element that must be in view to start animation
@@ -230,7 +333,7 @@ function applyFadeInAnimation(lines, container) {
     observer.observe(container);
 }
 
-// Example usage:
+// Example usage
 document.addEventListener("DOMContentLoaded", () => {
     const paragraph = document.querySelector('.fade-in-text');
     console.log("Found paragraph element:", paragraph);
@@ -244,8 +347,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("No paragraph element found.");
     }
 });
-
-
 
 
 
