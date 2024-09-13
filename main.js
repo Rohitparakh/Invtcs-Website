@@ -360,6 +360,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
+
 // Cryptoknights parent content update
 const data = {
   1: { imgSrc: "./public/Cryptoknights.jpeg", text: "CryptoKnights" },
