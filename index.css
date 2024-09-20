@@ -2029,8 +2029,6 @@ svg {
   pointer-events: none; /* Ensure the canvas doesn't interfere with image interactions */
 }
 
-@media(max-width:600px){
-  .w-96vw{
-    width: 96vw;
+  .w-100{
+    width: 100%;
   }
-}
