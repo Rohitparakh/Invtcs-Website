@@ -367,7 +367,7 @@ const data = {
   1: { imgSrc: "./public/Cryptoknights.jpeg", text: "CryptoKnights" },
   2: { imgSrc: "./public/deblock.jpeg", text: "DeBlock" },
   3: { imgSrc: "./public/group.svg", text: "RampX" },
-  4: { imgSrc: "./public/Enjinstarter.jpeg", text: "Enjinstarter" },
+  // 4: { imgSrc: "./public/Enjinstarter.jpeg", text: "Enjinstarter" },
 };
 
 document.querySelectorAll(".cryptoknights-parent h1").forEach((h1) => {
