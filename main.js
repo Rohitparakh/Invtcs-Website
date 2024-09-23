@@ -17,131 +17,79 @@ window.addEventListener("load", () => {
   }, 4000); // Delay of 4000 milliseconds (4 seconds)
 });
 
-// Hamburger menu functionality
-const hamburgerBtn = document.getElementById("hamburger-btn");
-const mobileMenu = document.getElementById("mobile-menu");
-const closeBtn = document.getElementById("close-btn");
-const mobileCta = document.getElementById("mobileCta");
-const header = document.getElementsByClassName("logo")[0];
+// // Hamburger menu functionality
+// const hamburgerBtn = document.getElementById("hamburger-btn");
+// const mobileMenu = document.getElementById("mobile-menu");
+// const closeBtn = document.getElementById("close-btn");
+// const mobileCta = document.getElementById("mobileCta");
+// const header = document.getElementsByClassName("logo")[0];
 
 
-// Function to close the mobile menu
-function closeMenu() {
-  mobileMenu.style.display = "none";
-  hamburgerBtn.style.display = "block"; // Show hamburger icon when menu is closed
-  closeBtn.style.display = "none"; // Hide close button when menu is closed
-  header.style.borderBottomRightRadius = 'var(--br-5xl)';
-    header.style.borderBottomLeftRadius = 'var(--br-5xl)';
-}
+// // Function to close the mobile menu
+// function closeMenu() {
+//   mobileMenu.style.display = "none";
+//   hamburgerBtn.style.display = "block"; // Show hamburger icon when menu is closed
+//   closeBtn.style.display = "none"; // Hide close button when menu is closed
+//   header.style.borderBottomRightRadius = 'var(--br-5xl)';
+//     header.style.borderBottomLeftRadius = 'var(--br-5xl)';
+// }
 
-// Function to open/close the mobile menu
-function openMenu() {
-    header.style.borderBottomRightRadius = 0;
-    header.style.borderBottomLeftRadius = 0;
-  mobileMenu.style.display =
-    mobileMenu.style.display === "block" ? "none" : "block";
-  hamburgerBtn.style.display = "none"; // Hide hamburger icon when menu is open
-  closeBtn.style.display = "block"; // Show close button when menu is open
-}
+// // Function to open/close the mobile menu
+// function openMenu() {
+//     header.style.borderBottomRightRadius = 0;
+//     header.style.borderBottomLeftRadius = 0;
+//   mobileMenu.style.display =
+//     mobileMenu.style.display === "block" ? "none" : "block";
+//   hamburgerBtn.style.display = "none"; // Hide hamburger icon when menu is open
+//   closeBtn.style.display = "block"; // Show close button when menu is open
+// }
 
-// Event listeners for menu buttons
-document.querySelectorAll(".closeMenu").forEach((element) => {
-  element.addEventListener("click", closeMenu);
-});
-hamburgerBtn.addEventListener("click", openMenu);
-closeBtn.addEventListener("click", closeMenu);
-mobileCta.addEventListener("click", closeMenu);
-
-// Slick carousel initialization
-$(document).ready(function () {
-  $(".suno-kahaniyan-originals-parent").slick({
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    dots: false,
-    nav: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  });
-});
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     const fadeInTextElements = document.querySelectorAll('.fade-in-text');
-//     const triggerPercentage = 0.5; // Percentage of the element in view to trigger animation (0.5 = 50%)
-//     const wordAnimationDelay = 100; // Time delay between words (300ms here)
-
-//     // Split text into individual words, wrapping each word in a span
-//     fadeInTextElements.forEach(element => {
-//         const textContent = element.innerText;
-//         const words = textContent.split(" ");
-        
-//         // Clear the original text content
-//         element.innerHTML = '';
-
-//         // Wrap each word in a span and append it back to the paragraph
-//         words.forEach((word, index) => {
-//             const wordSpan = document.createElement('span');
-//             wordSpan.textContent = word + ' ';
-//             element.appendChild(wordSpan);
-//         });
-//     });
-
-//     // Create a new IntersectionObserver to track when elements come into view
-//     const observerOptions = {
-//         root: null,
-//         rootMargin: '0px',
-//         threshold: triggerPercentage // Trigger when 50% of the element is in view
-//     };
-
-//     const observer = new IntersectionObserver((entries, observer) => {
-//         entries.forEach(entry => {
-//             if (entry.isIntersecting) {
-//                 const element = entry.target;
-//                 const wordSpans = element.querySelectorAll('span');
-
-//                 // Animate words one by one
-//                 wordSpans.forEach((wordSpan, index) => {
-//                     setTimeout(() => {
-//                         wordSpan.classList.add('fade-in-word');
-//                     }, index * wordAnimationDelay); // Apply delay for each word
-//                 });
-
-//                 // Stop observing the element once the animation has started
-//                 observer.unobserve(element);
-//             }
-//         });
-//     }, observerOptions);
-
-//     // Observe all the fade-in-text elements
-//     fadeInTextElements.forEach(element => {
-//         observer.observe(element);
-//     });
+// // Event listeners for menu buttons
+// document.querySelectorAll(".closeMenu").forEach((element) => {
+//   element.addEventListener("click", closeMenu);
 // });
+// hamburgerBtn.addEventListener("click", openMenu);
+// closeBtn.addEventListener("click", closeMenu);
+// mobileCta.addEventListener("click", closeMenu);
+
+// // Slick carousel initialization
+// $(document).ready(function () {
+//   $(".suno-kahaniyan-originals-parent").slick({
+//     infinite: true,
+//     autoplay: true,
+//     autoplaySpeed: 2000,
+//     slidesToShow: 4,
+//     slidesToScroll: 1,
+//     dots: false,
+//     nav: false,
+//     responsive: [
+//       {
+//         breakpoint: 1024,
+//         settings: {
+//           slidesToShow: 3,
+//           slidesToScroll: 3,
+//           infinite: true,
+//           dots: true,
+//         },
+//       },
+//       {
+//         breakpoint: 600,
+//         settings: {
+//           slidesToShow: 2,
+//           slidesToScroll: 2,
+//         },
+//       },
+//       {
+//         breakpoint: 480,
+//         settings: {
+//           slidesToShow: 1,
+//           slidesToScroll: 1,
+//         },
+//       },
+//     ],
+//   });
+// });
+
 
 // // Configuration variables
 // const ANIMATION_SPEED = 0.5; // Speed in seconds per line
@@ -230,7 +178,7 @@ $(document).ready(function () {
 //     observer.observe(container);
 // }
 
-// // Example usage:
+// // Example usage
 // document.addEventListener("DOMContentLoaded", () => {
 //     const paragraph = document.querySelector('.fade-in-text');
 //     console.log("Found paragraph element:", paragraph);
@@ -246,107 +194,6 @@ $(document).ready(function () {
 // });
 
 
-// Configuration variables
-const ANIMATION_SPEED = 0.5; // Speed in seconds per line
-const PERCENT_IN_VIEW = 0.5; // Percentage of the element that must be in view to start animation
-
-// Function to split text into lines based on natural word wrapping
-function splitTextIntoLines(element) {
-    console.log("Starting to split text into lines for element:", element);
-
-    const lines = [];
-    const words = element.textContent.split(' ');
-
-    // Create a clone of the element to measure line breaks
-    const clone = element.cloneNode(true);
-    clone.style.visibility = 'hidden';
-    clone.style.position = 'absolute';
-    clone.style.whiteSpace = 'normal';
-    clone.style.width = `${element.clientWidth}px`;
-    document.body.appendChild(clone);
-
-    // Reset the text content in the clone and start adding words one by one
-    clone.textContent = '';
-
-    let currentLine = '';
-
-    words.forEach((word, index) => {
-        clone.textContent = currentLine ? currentLine + ' ' + word : word;
-        
-        // If the text in the clone exceeds the width, push the previous line
-        if (clone.scrollHeight > element.scrollHeight) {
-            lines.push(currentLine); // Store the current line
-            currentLine = word; // Start a new line
-        } else {
-            currentLine = clone.textContent; // Continue adding to the current line
-        }
-    });
-
-    // Add the last line
-    if (currentLine) {
-        lines.push(currentLine);
-    }
-
-    document.body.removeChild(clone); // Remove the clone after processing
-    console.log("Final lines array:", lines);
-    return lines;
-}
-
-// Function to apply fade-in animation line by line
-function applyFadeInAnimation(lines, container) {
-    container.innerHTML = ''; // Clear original text
-    console.log("Cleared original container content.");
-
-    lines.forEach((line, index) => {
-        const lineDiv = document.createElement('div');
-        lineDiv.textContent = line;
-        lineDiv.classList.add('fade-in-line');
-        lineDiv.style.opacity = '0'; // Initially invisible
-        lineDiv.style.transition = `opacity ${ANIMATION_SPEED}s ease ${index * ANIMATION_SPEED}s`; // Delay each line fade-in
-
-        console.log(`Adding line [${index}] with delay ${index * ANIMATION_SPEED}s:`, line);
-        container.appendChild(lineDiv);
-    });
-
-    // Trigger the animation when the element is in view
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            console.log("IntersectionObserver triggered. Entry:", entry);
-            if (entry.isIntersecting) {
-                const ratio = entry.intersectionRatio;
-                console.log("Intersection ratio:", ratio);
-
-                if (ratio >= PERCENT_IN_VIEW) {
-                    console.log("Element is sufficiently in view, starting animation...");
-                    const lineElements = entry.target.querySelectorAll('.fade-in-line');
-                    lineElements.forEach((line, lineIndex) => {
-                        setTimeout(() => {
-                            console.log(`Fading in line [${lineIndex}]:`, line.textContent);
-                            line.style.opacity = '1'; // Make line visible
-                        }, lineIndex * ANIMATION_SPEED * 1000); // Delay each line fade-in
-                    });
-                }
-            }
-        });
-    }, { threshold: [PERCENT_IN_VIEW] });
-
-    observer.observe(container);
-}
-
-// Example usage
-document.addEventListener("DOMContentLoaded", () => {
-    const paragraph = document.querySelector('.fade-in-text');
-    console.log("Found paragraph element:", paragraph);
-
-    if (paragraph) {
-        const lines = splitTextIntoLines(paragraph);
-        console.log("Lines after splitting:", lines);
-
-        applyFadeInAnimation(lines, paragraph);
-    } else {
-        console.log("No paragraph element found.");
-    }
-});
 
 
 
@@ -354,90 +201,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+// // Cryptoknights parent content update
+// const data = {
+//   1: { imgSrc: "./public/Cryptoknights.jpeg", text: "CryptoKnights" },
+//   2: { imgSrc: "./public/deblock.jpeg", text: "DeBlock" },
+//   3: { imgSrc: "./public/group.svg", text: "RampX" }
+// };
 
+// document.querySelectorAll(".cryptoknights-parent h1").forEach((h1) => {
+//   h1.addEventListener("click", function () {
+//     // Remove 'active' class from all h1 elements
+//     document
+//       .querySelectorAll(".cryptoknights-parent h1")
+//       .forEach((el) => el.classList.remove("active"));
 
+//     // Add 'active' class to the clicked h1 element
+//     this.classList.add("active");
 
+//     // Get the id from the clicked h1 element
+//     const id = this.getAttribute("data-id");
+//     const itemData = data[id];
 
+//     // Update the img src and text content
+//     document
+//       .querySelector(".ellipse-parent .group-icon")
+//       .setAttribute("src", itemData.imgSrc);
+//     document.querySelector(".ellipse-parent .rampx").textContent =
+//       itemData.text;
+//   });
+// });
 
+// // Set default selection
+// const defaultId = "1";
+// const defaultH1 = document.querySelector(
+//   `.cryptoknights-parent h1[data-id="${defaultId}"]`
+// );
+// if (defaultH1) {
+//   defaultH1.classList.add("active");
+// }
 
+//  // Function to update content based on id
+//  function updateContent(id) {
+//     // Remove 'active' class from all h1 elements
+//     document.querySelectorAll('.cryptoknights-parent h1').forEach(el => el.classList.remove('active'));
 
+//     // Add 'active' class to the current h1 element
+//     const selectedH1 = document.querySelector(`.cryptoknights-parent h1[data-id="${id}"]`);
+//     if (selectedH1) {
+//         selectedH1.classList.add('active');
+//     }
 
-// Cryptoknights parent content update
-const data = {
-  1: { imgSrc: "./public/Cryptoknights.jpeg", text: "CryptoKnights" },
-  2: { imgSrc: "./public/deblock.jpeg", text: "DeBlock" },
-  3: { imgSrc: "./public/group.svg", text: "RampX" },
-  // 4: { imgSrc: "./public/Enjinstarter.jpeg", text: "Enjinstarter" },
-};
+//     // Update the img src and text content
+//     const itemData = data[id];
+//     document.querySelector('.ellipse-parent .group-icon').setAttribute('src', itemData.imgSrc);
+//     document.querySelector('.ellipse-parent .rampx').textContent = itemData.text;
+// }
 
-document.querySelectorAll(".cryptoknights-parent h1").forEach((h1) => {
-  h1.addEventListener("click", function () {
-    // Remove 'active' class from all h1 elements
-    document
-      .querySelectorAll(".cryptoknights-parent h1")
-      .forEach((el) => el.classList.remove("active"));
+// // Set default selection
+// let currentId = 1; // Start with id 1 by default
+// updateContent(currentId);
 
-    // Add 'active' class to the clicked h1 element
-    this.classList.add("active");
+// // Automatically change every 2.5 seconds
+// setInterval(() => {
+//     currentId++;
+//     if (currentId > 4) currentId = 1; // Loop back to 1 if it exceeds the number of items
+//     updateContent(currentId);
+// }, 2500); // Change every 2500 milliseconds (2.5 seconds)
 
-    // Get the id from the clicked h1 element
-    const id = this.getAttribute("data-id");
-    const itemData = data[id];
-
-    // Update the img src and text content
-    document
-      .querySelector(".ellipse-parent .group-icon")
-      .setAttribute("src", itemData.imgSrc);
-    document.querySelector(".ellipse-parent .rampx").textContent =
-      itemData.text;
-  });
-});
-
-// Set default selection
-const defaultId = "1";
-const defaultH1 = document.querySelector(
-  `.cryptoknights-parent h1[data-id="${defaultId}"]`
-);
-if (defaultH1) {
-  defaultH1.classList.add("active");
-}
-
- // Function to update content based on id
- function updateContent(id) {
-    // Remove 'active' class from all h1 elements
-    document.querySelectorAll('.cryptoknights-parent h1').forEach(el => el.classList.remove('active'));
-
-    // Add 'active' class to the current h1 element
-    const selectedH1 = document.querySelector(`.cryptoknights-parent h1[data-id="${id}"]`);
-    if (selectedH1) {
-        selectedH1.classList.add('active');
-    }
-
-    // Update the img src and text content
-    const itemData = data[id];
-    document.querySelector('.ellipse-parent .group-icon').setAttribute('src', itemData.imgSrc);
-    document.querySelector('.ellipse-parent .rampx').textContent = itemData.text;
-}
-
-// Set default selection
-let currentId = 1; // Start with id 1 by default
-updateContent(currentId);
-
-// Automatically change every 2.5 seconds
-setInterval(() => {
-    currentId++;
-    if (currentId > 4) currentId = 1; // Loop back to 1 if it exceeds the number of items
-    updateContent(currentId);
-}, 2500); // Change every 2500 milliseconds (2.5 seconds)
-
-// Allow manual clicks to override the automatic change
-document.querySelectorAll('.cryptoknights-parent h1').forEach(h1 => {
-    h1.addEventListener('click', function() {
-        // Set the current id to the clicked element's id
-        currentId = parseInt(this.getAttribute('data-id'), 10);
-        updateContent(currentId);
-    });
-});
+// // Allow manual clicks to override the automatic change
+// document.querySelectorAll('.cryptoknights-parent h1').forEach(h1 => {
+//     h1.addEventListener('click', function() {
+//         // Set the current id to the clicked element's id
+//         currentId = parseInt(this.getAttribute('data-id'), 10);
+//         updateContent(currentId);
+//     });
+// });
 
 // Displacement image for the filter
 var displacementImage = "https://picsum.photos/200/300?grayscale";

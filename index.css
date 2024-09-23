@@ -1307,6 +1307,7 @@ height: 100vh;
 }
 .frame-parent6 {
   font-size: 64px;
+  align-items: center;
 }
 .frame-parent8 {
   flex-wrap: wrap;
@@ -2031,4 +2032,8 @@ svg {
 
   .w-100{
     width: 100%;
+  }
+
+  .twitter-wrapper b{
+    font-weight: 600;
   }
